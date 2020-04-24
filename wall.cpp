@@ -1,7 +1,7 @@
 #include "wall.h"
 
 Wall::Wall(){
-
+  
 }
 
 Wall::~Wall(){
@@ -13,9 +13,9 @@ Wall::MoveResult checkMoveOnto(Entity *entity, const Position &fromPos, const Po
 }
 
 Wall::bool isGoal() const{
-
+  return false;
 }
 
 Wall::std::string getGlyph() const{
-
+  
 }
