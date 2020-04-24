@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 
+#include "position.h"
 class Tile;
 class Entity;
 class Position;
@@ -14,7 +15,7 @@ private:
   // TODO: add fields
   int m_width;
   int m_height;
-  vector<Tile> m_tiles;
+  std::vector<Tile> m_tiles;
   // disallow copy ctor and assignment operator
   Maze(const Maze &);
   Maze &operator=(const Maze &);
