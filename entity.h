@@ -11,7 +11,11 @@ class EntityController;
 class Entity {
 private:
   // TODO: add fields
-
+  Position m_pos;
+  EntityController * m_controller;
+  std::string m_glyph;
+  std::string m_properties;
+  
   // copy constructor and assignment operator are disallowed
   Entity(const Entity &);
   Entity &operator=(const Entity &);
