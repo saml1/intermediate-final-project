@@ -12,7 +12,9 @@ class Position;
 class Maze {
 private:
   // TODO: add fields
-
+  int m_width;
+  int m_height;
+  vector<Tile> m_tiles;
   // disallow copy ctor and assignment operator
   Maze(const Maze &);
   Maze &operator=(const Maze &);
