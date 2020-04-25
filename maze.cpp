@@ -30,24 +30,25 @@ bool Maze:: inBounds(const Position &pos) const{
 // Set a Tile at the specified Position.  The Maze assumes responsibility
 // for deleting the tile.
 void Maze:: setTile(const Position &pos, Tile *tile){
-  //char t = tile->Tile::getGlyph().at(0);
-  //m_tiles[pos.getY()*getWidth() + pos.getX()] = TileFactory::createFromChar(t);
   m_tiles[pos.getY()*getWidth() + pos.getX()]= tile;
-  }
+}
 
 // Get the Tile at the specified Position
 const Tile* Maze:: getTile(const Position &pos)const{
-  //int t = m_width;
   return m_tiles[pos.getY()*getWidth() + pos.getX()];
 }
 
 // Read a description of a Maze from specified istream, and return it.
-static Maze* Maze:: read(std::istream &in){
-  std::string temp;
+Maze* Maze:: read(std::istream &in){
+  /*std::string temp;
   int w;
   int h;
   std::getline(in, temp);
-  sscanf(temp, "%d%d", &w, &h);
+  sscanf(temp, "%d%d", &w, &h);*/
+  int w;
+  int h;
+  in >> w;
+  in >> h;
   Maze * newMaze = new Maze(w,h);
   //TODO: didn't finish this method! still need to add vector<tile> and other stuff
   return newMaze;
