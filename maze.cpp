@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <vector>
 #include "tile.h"
-#include "tilefactory.h"
+//#include "tilefactory.h"
 Maze::Maze(int width, int height) : m_width(width), m_height(height){}
 
 Maze::~Maze(){
   
 }
-/*
+
 // Get the width of the Maze
 int Maze:: getWidth() const{
   return m_width;
@@ -30,13 +30,14 @@ bool Maze:: inBounds(const Position &pos) const{
 // Set a Tile at the specified Position.  The Maze assumes responsibility
 // for deleting the tile.
 void Maze:: setTile(const Position &pos, Tile *tile){
-  char t = tile->Tile::getGlyph().at(0);
+  //char t = tile->Tile::getGlyph().at(0);
   //m_tiles[pos.getY()*getWidth() + pos.getX()] = TileFactory::createFromChar(t);
-  m_tiles[pos.getY()*getWidth() + pos.getX()] = *tile;
-}
+  m_tiles[pos.getY()*getWidth() + pos.getX()]= tile;
+  }
 
 // Get the Tile at the specified Position
-const Tile Maze::*getTile(const Position &pos) const{
+const Tile* Maze:: getTile(const Position &pos)const{
+  //int t = m_width;
   return m_tiles[pos.getY()*getWidth() + pos.getX()];
 }
 
@@ -52,4 +53,3 @@ static Maze* Maze:: read(std::istream &in){
   return newMaze;
   
 }
-*/
