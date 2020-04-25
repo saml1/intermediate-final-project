@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include "tile.h"
-//#include "tilefactory.h"
+#include "tilefactory.h"
 Maze::Maze(int width, int height) : m_width(width), m_height(height){}
 
 Maze::~Maze(){
@@ -45,12 +45,30 @@ Maze* Maze:: read(std::istream &in){
   int h;
   std::getline(in, temp);
   sscanf(temp, "%d%d", &w, &h);*/
-  int w;
-  int h;
-  in >> w;
-  in >> h;
-  Maze * newMaze = new Maze(w,h);
+  int width;
+  int height;
+  in >> width;
+  in >> height;
+  Maze * newMaze = new Maze(width,height);
+  char ch;
+  in >> ch;
+  TileFactory * tf = TileFactory::getInstance();
+  //int count = 0;
+  while(in >> ch){
+    Tile* temp = tf->createFromChar(ch);
+    if(temp == nullptr){
+      return nullptr;
+    }
+    (newMaze->m_tiles).push_back(temp);
+    //(newMaze->m_tiles)[count] = temp;
+    //count++;
+  }
+  
   //TODO: didn't finish this method! still need to add vector<tile> and other stuff
   return newMaze;
   
+}
+
+int Maze::posToIndex(const Position &pos){
+  return pos.getY()*getWidth() + pos.getX();
 }

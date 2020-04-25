@@ -5,6 +5,9 @@
 #include <vector>
 
 #include "position.h"
+#include "tile.h"
+#include "entity.h"
+
 class Tile;
 class Entity;
 class Position;
@@ -15,7 +18,7 @@ private:
   // TODO: add fields
   int m_width;
   int m_height;
-  std::vector<Tile> m_tiles;
+  std::vector<Tile*> m_tiles;
   // disallow copy ctor and assignment operator
   Maze(const Maze &);
   Maze &operator=(const Maze &);
@@ -44,8 +47,12 @@ public:
   // Read a description of a Maze from specified istream, and return it.
   static Maze *read(std::istream &in);
 
+  // Returns the (int) position of specified Position
+  int posToIndex(const Position &pos);
+
 private:
   // Add your own private member functions
+  
 };
 
 #endif
