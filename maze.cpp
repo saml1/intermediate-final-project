@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <vector>
 #include "tile.h"
+#include "tilefactory.h"
 Maze::Maze(int width, int height) : m_width(width), m_height(height){}
 
 Maze::~Maze(){
   
 }
-
+/*
 // Get the width of the Maze
 int Maze:: getWidth() const{
   return m_width;
@@ -29,16 +30,18 @@ bool Maze:: inBounds(const Position &pos) const{
 // Set a Tile at the specified Position.  The Maze assumes responsibility
 // for deleting the tile.
 void Maze:: setTile(const Position &pos, Tile *tile){
-  m_tiles[pos.getY()*m_width + pos.getX()] = *tile;
+  char t = tile->Tile::getGlyph().at(0);
+  //m_tiles[pos.getY()*getWidth() + pos.getX()] = TileFactory::createFromChar(t);
+  m_tiles[pos.getY()*getWidth() + pos.getX()] = *tile;
 }
 
 // Get the Tile at the specified Position
 const Tile Maze::*getTile(const Position &pos) const{
-  return m_tiles[pos.getY()*m_width + pos.getX()];
+  return m_tiles[pos.getY()*getWidth() + pos.getX()];
 }
 
 // Read a description of a Maze from specified istream, and return it.
-Maze::static Maze *read(std::istream &in){
+static Maze* Maze:: read(std::istream &in){
   std::string temp;
   int w;
   int h;
@@ -49,3 +52,4 @@ Maze::static Maze *read(std::istream &in){
   return newMaze;
   
 }
+*/
