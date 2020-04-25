@@ -8,14 +8,14 @@ Wall::~Wall(){
 
 }
 
-Wall::MoveResult checkMoveOnto(Entity *entity, const Position &fromPos, const Position &tilePos) const{
-
+MoveResult Wall::checkMoveOnto(Entity *entity, const Position &fromPos, const Position &tilePos) const{
+  return MoveResult::BLOCK;
 }
 
-Wall::bool isGoal() const{
+bool Wall::isGoal() const{
   return false;
 }
 
-Wall::std::string getGlyph() const{
-  
+std::string Wall::getGlyph() const{
+  return "#";
 }
