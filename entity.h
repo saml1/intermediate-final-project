@@ -3,6 +3,7 @@
 
 #include <string>
 #include "position.h"
+#include "entitycontroller.h"
 
 class EntityController;
 
@@ -10,7 +11,6 @@ class EntityController;
 // This class is *not* intended to have dervied classes.
 class Entity {
 private:
-  // TODO: add fields
   Position m_pos;
   EntityController * m_controller;
   std::string m_glyph;
