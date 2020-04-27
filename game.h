@@ -23,7 +23,7 @@ private:
   Maze* m_maze;
   UI* m_ui;
   GameRules* m_gameRules;
-  vector<Entity*> m_entities;
+  std::vector<Entity*> m_entities;
   // disallow copy constructor and assignment operator
   Game(const Game &);
   Game &operator=(const Game &);
