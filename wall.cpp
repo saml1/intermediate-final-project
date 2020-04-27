@@ -8,7 +8,7 @@ Wall::~Wall(){
 
 }
 
-MoveResult Wall::checkMoveOnto(Entity *entity, const Position &fromPos, const Position &tilePos) const{
+MoveResult Wall::checkMoveOnto(Entity *, const Position &, const Position &) const{
   return MoveResult::BLOCK;
 }
 

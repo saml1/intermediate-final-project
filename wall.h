@@ -14,7 +14,7 @@ public:
   Wall();
   virtual ~Wall();
 
-  virtual MoveResult checkMoveOnto(Entity *entity, const Position &fromPos, const Position &tilePos) const;
+  virtual MoveResult checkMoveOnto(Entity *, const Position &, const Position &) const;
   virtual bool isGoal() const;
   virtual std::string getGlyph() const;
 };

@@ -4,7 +4,7 @@ Floor::Floor(){}
 
 Floor::~Floor(){}
 
-MoveResult Floor::checkMoveOnto(Entity *entity, const Position &fromPos, const Position &tilePos) const{
+MoveResult Floor::checkMoveOnto(Entity *, const Position &, const Position &) const{
   return MoveResult::ALLOW;
 }
 
