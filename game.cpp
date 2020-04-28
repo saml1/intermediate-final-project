@@ -120,7 +120,14 @@ void Game::gameLoop(){
 // unit tests.  It is mainly intended to be called from                                                    
 // the gameLoop member function.                                                                           
 void Game::takeTurn(Entity *actor){
-
+  EntityController * ec = actor->getController();
+  Direction dir = ec->getMoveDirection(this, actor);
+  if(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir))){
+    m_gameRules->enactMove(this, actor, (actor->getPosition()).displace(dir));
+  }
+  if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir)))){
+    m_ui->displayMessage("Illagel Move");
+  }
 }
 
 // Read initial Game data from the specified istream, and return                                           
