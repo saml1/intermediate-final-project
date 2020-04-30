@@ -27,8 +27,15 @@ Maze.cpp*
 	-getTile() :)
 	-read()*
 	-posToIndex() :)
-
-
+Game.cpp* (I'm honestly not sure 100% what is done and what isn't, please add)
+	  -loadGame()*
+	  
+BasicGameRules.cpp*
+	-BasicGameRules()*
+	-~BasicGameRules()*
+	-allowMove()*
+	-enactMove()*
+	-checkGameResult()*
 
 Do NOT modify these classes(They were given to us)
 

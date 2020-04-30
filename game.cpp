@@ -133,6 +133,7 @@ void Game::takeTurn(Entity *actor){
 // Read initial Game data from the specified istream, and return                                           
 // the resulting Game object.                                                                              
 Game * Game::loadGame(std::istream &in){
+  /*
   //first set maze data
   Game * g = new Game();
   Maze * m = Maze::read(in);
@@ -145,7 +146,19 @@ Game * Game::loadGame(std::istream &in){
       break;
     }
   }
-  
+  */
+
+  Game * g = new Game();
+  Maze * m = Maze::read(in);
+  g->setMaze(m);
+  //then read istream but skip over maze data
+  char temp;
+  in >> temp;
+  while(in >> temp){
+    if(temp != '#'){
+      break;
+    }
+  }
   
   
   
