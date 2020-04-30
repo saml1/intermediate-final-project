@@ -1,0 +1,44 @@
+Please write whatever functions/classes you have completed below
+
+Use a ? suffix to indicate untested but done
+Use a :) suffix to indicate the class is finished
+Use a * to indicate an unfinished class and list the functions as such
+
+UnfinishedClass.cpp*
+	-FinishedFunction() :)
+	-UntestedFunction() ?
+	-WIPFunction() *
+
+Do not list a function that has not been started, only functions that have been modified or edited to some degree.
+
+Wall.cpp :)
+
+Goal.cpp :)
+
+Floor.cpp :)
+
+Maze.cpp*
+	-Maze() :)
+	-~Maze()*
+	-getWidth() :)
+	-getHeight :)
+	-inBounds() :)
+	-setTile() :)
+	-getTile() :)
+	-read()*
+	-posToIndex() :)
+
+
+
+Do NOT modify these classes(They were given to us)
+
+ecfactory.cpp
+entitycontroller.cpp
+gamerules.cpp
+mysterycontroller.cpp
+mysterytile.cpp
+position.cpp
+scriptedcontrol.cpp
+tilefactory.cpp
+tile.cpp
+ui.cpp
