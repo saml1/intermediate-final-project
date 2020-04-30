@@ -17,15 +17,15 @@ Goal.cpp :)
 
 Floor.cpp :)
 
-Maze.cpp*
+Maze.cpp :)
 	-Maze() :)
-	-~Maze()*
+	-~Maze() :)
 	-getWidth() :)
 	-getHeight :)
 	-inBounds() :)
 	-setTile() :)
 	-getTile() :)
-	-read()*
+	-read() :)
 	-posToIndex() :)
 Game.cpp* (I'm honestly not sure 100% what is done and what isn't, please add)
 	  -loadGame()*

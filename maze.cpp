@@ -64,7 +64,6 @@ Maze* Maze:: read(std::istream &in){
     //count++;
   }
   
-  //TODO: didn't finish this method! still need to add vector<tile> and other stuff
   return newMaze;
   
 }
