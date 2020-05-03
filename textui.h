@@ -8,7 +8,7 @@
 class TextUI : public UI {
 private:
   // TODO: add fields
-
+  std::string m_msg;
   // copy constructor and assignment operator disallowed
   TextUI(const TextUI &);
   TextUI &operator=(const TextUI &);
