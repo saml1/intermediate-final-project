@@ -126,7 +126,7 @@ void Game::takeTurn(Entity *actor){
     m_gameRules->enactMove(this, actor, (actor->getPosition()).displace(dir));
   }
   if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir)))){
-    m_ui->displayMessage("Illagel Move");
+    m_ui->displayMessage("Illegal Move");
   }
 }
 
@@ -150,16 +150,41 @@ Game * Game::loadGame(std::istream &in){
 
   Game * g = new Game();
   Maze * m = Maze::read(in);
+  if(m == NULL) {
+    return NULL;
+  }
   g->setMaze(m);
   //then read istream but skip over maze data
   char temp;
   in >> temp;
+  EntityController * controller;
+  Entity * e;
   while(in >> temp){
-    if(temp != '#'){
-      break;
+    if(temp == '#' || temp == '.' || temp == '<'){ //Skip over maze data
+      continue;
+    }
+    try { //If not maze data process first entity
+      e = new Entity();
+      char glyph = temp; //Store glpyh for later
+      in >> temp;
+      controller = EntityControllerFactor::createFromChar(temp); //Create entity from temp char
+      std::string properties; //Read the remaining properties and add them to entity
+      in >> properties;
+      e->setProperties(&properties);
+      int x = 0;
+      int y = 0;
+      in >> x;
+      in >> y;
+      Position pos = new Position(x, y); //Create position from x and y cords
+      e->setPosition(&pos); //Apply remaining attributes to entity
+      e->setController(&controller);
+      e->setGlyph(glyph);
+      g->addEntity(e); //Add entity to the game
+    }
+    catch {
+      return NULL;
     }
   }
-  
-  
-  
+
+  return g;
 }

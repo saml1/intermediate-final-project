@@ -28,7 +28,19 @@ Maze.cpp :)
 	-read() :)
 	-posToIndex() :)
 Game.cpp* (I'm honestly not sure 100% what is done and what isn't, please add)
-	  -loadGame()*
+	  -loadGame()?
+	  -setMaze() :)
+	  -setUI() :)
+	  -setGameRules() :)
+	  -addEntity() :)
+	  -getEntityAt() :)
+	  -getEntities() :)
+	  -getEntitiesWithProperty() :)
+	  -getMaze() :)
+	  -getUI() :)
+	  -getGameRules() :)
+	  -gameLoop()?
+	  -takeTurn()?
 	  
 BasicGameRules.cpp*
 	-BasicGameRules()*
