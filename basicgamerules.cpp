@@ -57,9 +57,36 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
 }
 
 void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) const {
-  Maze * maze = game->getMaze();
-  actor->setPosition(dest);
   
+  const Position source = actor->getPosition();
+  Direction direct;
+  if(source.displace(Direction::UP) == dest) {
+    direct = Direction::UP;
+  }
+  if(source.displace(Direction::DOWN) == dest) {
+    direct = Direction::DOWN;
+  }
+  if(source.displace(Direction::LEFT) == dest) {
+    direct = Direction::LEFT;
+  }
+  if(source.displace(Direction::RIGHT) == dest) {
+    direct = Direction::RIGHT;
+  }
+
+  Entity * eAtD = game->getEntityAt(dest);
+  EntityController * ec = actor->getController(); 
+  if(eAtD == NULL) {
+    actor->setPosition(dest);
+  }
+  else if(ec->isUser()){
+    eAtD->setPosition(dest.displace(direct));
+    actor->setPosition(dest);
+  }
+  else {
+    actor->setPosition(dest);
+  }
+  
+  // actor->setPosition(dest);
 }
 
 GameResult BasicGameRules::checkGameResult(Game *game) const {
