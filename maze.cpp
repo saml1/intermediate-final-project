@@ -5,9 +5,7 @@
 #include <vector>
 #include "tile.h"
 #include "tilefactory.h"
-Maze::Maze(int width, int height) : m_width(width), m_height(height){
-  m_tiles;
-}
+Maze::Maze(int width, int height) : m_width(width), m_height(height){}
 
 Maze::~Maze(){
   
@@ -68,8 +66,11 @@ Maze* Maze:: read(std::istream &in){
     //(newMaze->m_tiles)[count] = temp;
     count++;
     if(count == width * height) {
-      break;
+      //break;
     }
+  }
+  if(count != width*height){
+    return nullptr;
   }
   return newMaze;
   
