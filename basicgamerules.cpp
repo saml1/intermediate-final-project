@@ -26,11 +26,27 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
     }
   }
   else {
+    Direction direct;
+    if(source.displace(Direction::UP) == dest) {
+      direct = Direction::UP;
+    }
+    if(source.displace(Direction::DOWN) == dest) {
+      direct = Direction::DOWN;
+    }
+    if(source.displace(Direction::LEFT) == dest) {
+      direct = Direction::LEFT;
+    }
+    if(source.displace(Direction::RIGHT) == dest) {
+      direct = Direction::RIGHT;
+    }
     
+    if(!eAtD->hasProperty('v')) {
+      return false;
+    }
+    if(!allowMove(game, eAtD, dest, dest.displace(direct))) {
+      return false;  
+    }
   }
-  
-
-
   return true;
 }
 

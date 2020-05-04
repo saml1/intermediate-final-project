@@ -90,28 +90,19 @@ void Game::gameLoop(){
   bool forward = true;//loops entities back and forth
   int size = (int)m_entities.size();
   int cur = 0;
-  while(m_gameRules->GameRules::checkGameResult(this) == GameResult::UNKNOWN){
+  while(m_gameRules->checkGameResult(this) == GameResult::UNKNOWN){
     if(m_entities[cur]->getController()->isUser()){
       m_ui->render(this);
     }
     takeTurn(m_entities[cur]);
-    if(forward){
-      if(cur < size -1){
-	cur++;
-      }else{
-	cur--;
-	forward = false;
-      }
-    }else{
-      if(cur > 0){
-	cur--;
-      }else{
-	cur++;
-	forward = true;
-      }
+    if(cur + 1 == size){
+      cur = 0;
+    }
+    else {
+      cur++;
     }
   }
-  if(m_gameRules->GameRules::checkGameResult(this) == GameResult::HERO_WINS){
+  if(m_gameRules->checkGameResult(this) == GameResult::HERO_WINS){
     m_ui->displayMessage("Hero wins");
   }else{
     m_ui->displayMessage("Hero loses");
