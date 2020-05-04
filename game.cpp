@@ -12,7 +12,10 @@
 
 typedef std::vector<Entity *> EntityVec;
 
-Game::Game(){}
+Game::Game(){
+  //m_ui = nullptr;
+  //m_gameRules = nullptr;
+}
 
 Game::~Game(){}
 
@@ -23,12 +26,12 @@ void Game::setMaze(Maze *maze){
 
 // Set the UI object. The Game object assumes responsibility for deleting it.
 void Game::setUI(UI *ui){
-  m_ui = ui;
+  if(ui != nullptr){m_ui = ui;};
 }
 
 // Set the GameRules object. The Game object assumes responsibility for deleting it.
 void Game::setGameRules(GameRules *gameRules){
-  m_gameRules = gameRules;
+  if(gameRules != nullptr){m_gameRules = gameRules;}
 }
 
 // Add an Entity to the sequence of entities. The Game object assumes
@@ -118,12 +121,19 @@ void Game::gameLoop(){
 void Game::takeTurn(Entity *actor){
   EntityController * ec = actor->getController();
   Direction dir = ec->getMoveDirection(this, actor);
-  if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir)))){
+  Position dest = (actor->getPosition()).displace(dir);
+  if(m_gameRules->allowMove(this, actor, actor->getPosition(),dest)){
+    m_gameRules->enactMove(this, actor, dest);
+  }
+  else if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), dest))){
     m_ui->displayMessage("Illegal Move");
   }
+  /*if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir)))){
+    m_ui->displayMessage("Illegal Move");
+    }
   else if(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir))){
-    m_gameRules->enactMove(this, actor, (actor->getPosition()).displace(dir));
-  }
+  m_gameRules->enactMove(this, actor, (actor->getPosition()).displace(dir));
+    }*/
 }
 
 // Read initial Game data from the specified istream, and return                                           
