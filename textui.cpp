@@ -25,7 +25,7 @@ Direction TextUI::getMoveDirection() {
     
   default:
     std::cout << "Unknown direction";
-    return getMoveDirection();
+    return TextUI::getMoveDirection();
   }
   
 }

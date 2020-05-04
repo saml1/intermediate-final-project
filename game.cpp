@@ -5,6 +5,9 @@
 #include "entity.h"
 #include "gamerules.h"
 #include "gamerules.h"
+#include "ecfactory.h"
+#include "entitycontroller.h"
+
 
 typedef std::vector<Entity *> EntityVec;
 
@@ -159,6 +162,7 @@ Game * Game::loadGame(std::istream &in){
   in >> temp;
   EntityController * controller;
   Entity * e;
+  EntityControllerFactory * ecfactory = EntityControllerFactory::getInstance();
   while(in >> temp){
     if(temp == '#' || temp == '.' || temp == '<'){ //Skip over maze data
       continue;
@@ -167,21 +171,21 @@ Game * Game::loadGame(std::istream &in){
       e = new Entity();
       char glyph = temp; //Store glpyh for later
       in >> temp;
-      controller = EntityControllerFactor::createFromChar(temp); //Create entity from temp char
+      controller = ecfactory->createFromChar(temp); //Create entity from temp char
       std::string properties; //Read the remaining properties and add them to entity
       in >> properties;
-      e->setProperties(&properties);
+      e->setProperties(properties);
       int x = 0;
       int y = 0;
       in >> x;
       in >> y;
-      Position pos = new Position(x, y); //Create position from x and y cords
-      e->setPosition(&pos); //Apply remaining attributes to entity
-      e->setController(&controller);
-      e->setGlyph(glyph);
+      Position *pos = new Position(x, y); //Create position from x and y cords
+      e->setPosition(*pos); //Apply remaining attributes to entity
+      e->setController(controller);
+      e->setGlyph(&glyph);
       g->addEntity(e); //Add entity to the game
     }
-    catch {
+    catch (int e) {
       return NULL;
     }
   }

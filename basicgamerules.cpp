@@ -6,14 +6,14 @@ BasicGameRules::BasicGameRules() {}
 BasicGameRules::~BasicGameRules() {}
 
 
-bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source, const Position &dest) {
+bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source, const Position &dest) const {
   return false;
 }
 
-void BasicGameRules::enactMove(Gmae *game, Entity *actor, const Position &dest) {
-  return false;
+void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) const {
+  
 }
 
-GameResult BasicGameRules::checkGameResult(Game *game) {
+GameResult BasicGameRules::checkGameResult(Game *game) const {
   
 }
