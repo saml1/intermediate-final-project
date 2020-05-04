@@ -57,10 +57,8 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
 }
 
 void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) const {
-  
-
-
-
+  Maze * maze = game->getMaze();
+  actor->setPosition(dest);
   
 }
 

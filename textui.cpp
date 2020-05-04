@@ -44,9 +44,9 @@ void TextUI::render(Game *game) {
   Maze * maze = game->getMaze();
   int width = maze->getWidth();
   int height = maze->getHeight();
-  for(int i = 0; i < width; i++) {
-    for(int j = 0; j < height; j++) {
-      Position * pos = new Position(i,j);
+  for(int i = 0; i < height-1; i++) {
+    for(int j = 0; j < width-1; j++) {
+      Position * pos = new Position(j, i);
       if(game->getEntityAt(*pos) == NULL) {
 	const Tile * tile = maze->getTile(*pos);
 	std::cout << tile->getGlyph();
@@ -56,7 +56,7 @@ void TextUI::render(Game *game) {
 	std::cout << entity->getGlyph();
       }
     }
-    std::cout << std::endl;
+    std::cout << "" << std::endl;
   }
   //Check for outgoing message
   if(m_msg.compare("") != 0) {

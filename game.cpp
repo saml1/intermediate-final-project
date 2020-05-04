@@ -104,8 +104,10 @@ void Game::gameLoop(){
   }
   if(m_gameRules->checkGameResult(this) == GameResult::HERO_WINS){
     m_ui->displayMessage("Hero wins");
+    m_ui->render(this);
   }else{
     m_ui->displayMessage("Hero loses");
+    m_ui->render(this);
   }
 }
 
@@ -144,13 +146,11 @@ Game * Game::loadGame(std::istream &in){
   Game * g = new Game();
   Maze * m = Maze::read(in);
   if(m == NULL) {
-    std::cout << "TEST" << std::endl;
     return NULL;
   }
   g->setMaze(m);
   //then read istream but skip over maze data
   char temp;
-  in >> temp;
   EntityController * controller;
   Entity * e;
   EntityControllerFactory * ecfactory = EntityControllerFactory::getInstance();
@@ -160,7 +160,10 @@ Game * Game::loadGame(std::istream &in){
     }
     try { //If not maze data process first entity
       e = new Entity();
-      char glyph = temp; //Store glpyh for later
+      char glyph = temp;//Store glpyh for later
+      std::string test;
+      test.push_back(glyph);
+      e->setGlyph(test);
       in >> temp;
       controller = ecfactory->createFromChar(temp); //Create entity from temp char
       std::string properties; //Read the remaining properties and add them to entity
@@ -173,7 +176,6 @@ Game * Game::loadGame(std::istream &in){
       Position *pos = new Position(x, y); //Create position from x and y cords
       e->setPosition(*pos); //Apply remaining attributes to entity
       e->setController(controller);
-      e->setGlyph(&glyph);
       g->addEntity(e); //Add entity to the game
     }
     catch (int e) {
