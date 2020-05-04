@@ -52,11 +52,14 @@ Maze* Maze:: read(std::istream &in){
   int height;
   in >> width;
   in >> height;
+  if(width == NULL || height == NULL) {
+    return nullptr;
+  }
   Maze * newMaze = new Maze(width,height);
   char ch;
-  in >> ch;
+  //in >> ch;
   TileFactory * tf = TileFactory::getInstance();
-  int count = 1;
+  int count = 0;
   while(in >> ch){
     Tile* temp = tf->createFromChar(ch);
     if(temp == nullptr){
@@ -67,7 +70,8 @@ Maze* Maze:: read(std::istream &in){
     count++;
     if(count == width * height) {
       char test = in.peek();
-      if(test == '#' || test == '.' || test == '<') {
+      Tile * tile = tf->createFromChar(test);
+      if(tile != nullptr) {
 	return nullptr;
       }
       break;

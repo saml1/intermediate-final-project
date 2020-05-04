@@ -45,7 +45,7 @@ void TextUI::render(Game *game) {
   int width = maze->getWidth();
   int height = maze->getHeight();
   for(int i = 0; i < height; i++) {
-    for(int j = 0; j < width-1; j++) {
+    for(int j = 0; j < width; j++) {
       Position * pos = new Position(j, i);
       if(game->getEntityAt(*pos) == NULL) {
 	const Tile * tile = maze->getTile(*pos);
