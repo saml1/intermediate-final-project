@@ -47,12 +47,18 @@ void TextUI::render(Game *game) {
   for(int i = 0; i < width; i++) {
     for(int j = 0; j < height; j++) {
       Position * pos = new Position(i,j);
-      const Tile * tile = maze->getTile(*pos);
-      std::cout << tile->getGlyph();
-      
+      if(game->getEntityAt(*pos) == NULL) {
+	const Tile * tile = maze->getTile(*pos);
+	std::cout << tile->getGlyph();
+      }
+      else {
+	Entity * entity = game->getEntityAt(*pos);
+	std::cout << entity->getGlyph();
+      }
     }
     std::cout << std::endl;
   }
+  //Check for outgoing message
   if(m_msg.compare("") != 0) {
     std::cout << m_msg << std::endl;
     m_msg = "";

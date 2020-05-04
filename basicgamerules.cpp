@@ -15,5 +15,5 @@ void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) 
 }
 
 GameResult BasicGameRules::checkGameResult(Game *game) const {
-  
+  return GameResult::UNKNOWN; //Stub
 }
