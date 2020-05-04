@@ -1,6 +1,6 @@
 #include "entitycontroller.h"
 #include "uicontrol.h"
-#include "ui.h"
+#include "textui.h"
 
 UIControl::UIControl() {}
 
