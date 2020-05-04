@@ -1,6 +1,7 @@
 #include "textui.h"
 #include <iostream>
-
+#include "maze.h"
+#include "game.h"
 
 TextUI::TextUI() {}
 
@@ -31,7 +32,7 @@ Direction TextUI::getMoveDirection() {
 }
 
 void TextUI::displayMessage(const std::string &msg, bool endgame) {
-  if(endgame) {
+  if(endgame) { //TextUI ignores endgame bool so message is recorded either way, if statement to avoid unsed variable warning
     m_msg = msg;
   }
   else {
@@ -40,5 +41,20 @@ void TextUI::displayMessage(const std::string &msg, bool endgame) {
 }
 
 void TextUI::render(Game *game) {
-  
+  Maze * maze = game->getMaze();
+  int width = maze->getWidth();
+  int height = maze->getHeight();
+  for(int i = 0; i < width; i++) {
+    for(int j = 0; j < height; j++) {
+      Position * pos = new Position(i,j);
+      const Tile * tile = maze->getTile(*pos);
+      std::cout << tile->getGlyph();
+      
+    }
+    std::cout << std::endl;
+  }
+  if(m_msg.compare("") != 0) {
+    std::cout << m_msg << std::endl;
+    m_msg = "";
+  }
 }

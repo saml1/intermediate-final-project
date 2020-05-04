@@ -49,6 +49,10 @@ BasicGameRules.cpp*
 	-enactMove()*
 	-checkGameResult()*
 
+TextUI.cpp :)
+
+
+
 Do NOT modify these classes(They were given to us)
 
 ecfactory.cpp
