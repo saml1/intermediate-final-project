@@ -5,7 +5,9 @@
 #include <vector>
 #include "tile.h"
 #include "tilefactory.h"
-Maze::Maze(int width, int height) : m_width(width), m_height(height){}
+Maze::Maze(int width, int height) : m_width(width), m_height(height){
+  m_tiles;
+}
 
 Maze::~Maze(){
   
@@ -30,7 +32,10 @@ bool Maze:: inBounds(const Position &pos) const{
 // Set a Tile at the specified Position.  The Maze assumes responsibility
 // for deleting the tile.
 void Maze:: setTile(const Position &pos, Tile *tile){
-  m_tiles[pos.getY()*getWidth() + pos.getX()]= tile;
+  //m_tiles[pos.getY()*getWidth() + pos.getX()]= tile;
+  //m_tiles[0] = tile;
+  m_tiles.push_back(nullptr);
+  m_tiles[pos.getY()*getWidth() + pos.getX()] = tile;
 }
 
 // Get the Tile at the specified Position
