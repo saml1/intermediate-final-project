@@ -1,10 +1,16 @@
 #include "basicgamerules.h"
 #include "gamerules.h"
 #include "maze.h"
+#include "game.h"
+#include "entity.h"
 
-BasicGameRules::BasicGameRules() {}
+BasicGameRules::BasicGameRules() {
 
-BasicGameRules::~BasicGameRules() {}
+}
+
+BasicGameRules::~BasicGameRules() {
+
+}
 
 
 bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source, const Position &dest) const {
@@ -12,8 +18,8 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
     return false;
   }
   Maze * maze = game->getMaze();
-  int width = maze->getWidth();
-  int height = maze->getHeight();
+  const int width = maze->getWidth();
+  const int height = maze->getHeight();
   if(!dest.inBounds(width, height)) {
     return false;
   }
@@ -52,8 +58,28 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
 
 void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) const {
   
+
+
+
+  
 }
 
 GameResult BasicGameRules::checkGameResult(Game *game) const {
-  return GameResult::UNKNOWN; //Stub
+  Maze * maze = game->getMaze();
+  const std::vector<Entity *> heros = game->getEntitiesWithProperty('h');
+  const std::vector<Entity *> evils = game->getEntitiesWithProperty('m');
+  for(int i = 0; i < (int)heros.size(); i++) {
+    const Position pos = heros[i]->getPosition();
+    const Tile * tile = maze->getTile(pos);
+    if(tile->isGoal()) {
+      return GameResult::HERO_WINS;
+    }
+    for(int j = 0; j < (int)evils.size(); j++) {
+      const Position temppos = evils[i]->getPosition();
+      if(temppos == pos) {
+	return GameResult::HERO_LOSES;
+      }
+    }
+  }
+  return GameResult::UNKNOWN;
 }

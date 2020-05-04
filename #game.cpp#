@@ -7,7 +7,6 @@
 #include "gamerules.h"
 #include "ecfactory.h"
 #include "entitycontroller.h"
-#include <iostream>
 
 
 typedef std::vector<Entity *> EntityVec;
@@ -114,7 +113,7 @@ void Game::gameLoop(){
 // unit tests.  It is mainly intended to be called from                                                    
 // the gameLoop member function.                                                                           
 void Game::takeTurn(Entity *actor){
-  EntityController * ec = actor->getController();
+emacs  EntityController * ec = actor->getController();
   Direction dir = ec->getMoveDirection(this, actor);
   if(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir))){
     m_gameRules->enactMove(this, actor, (actor->getPosition()).displace(dir));
@@ -141,10 +140,10 @@ Game * Game::loadGame(std::istream &in){
     }
   }
   */
+
   Game * g = new Game();
   Maze * m = Maze::read(in);
   if(m == NULL) {
-    std::cout << "TEST" << std::endl;
     return NULL;
   }
   g->setMaze(m);
