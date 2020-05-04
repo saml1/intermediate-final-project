@@ -66,7 +66,11 @@ Maze* Maze:: read(std::istream &in){
     //(newMaze->m_tiles)[count] = temp;
     count++;
     if(count == width * height) {
-      //break;
+      char test = in.peek();
+      if(test == '#' || test == '.' || test == '<') {
+	return nullptr;
+      }
+      break;
     }
   }
   if(count != width*height){

@@ -166,8 +166,9 @@ Game * Game::loadGame(std::istream &in){
   EntityControllerFactory * ecfactory = EntityControllerFactory::getInstance();
   while(in >> temp){
     if(temp == '#' || temp == '.' || temp == '<'){ //Skip over maze data
-      continue;
+      return NULL;
     }
+    
     try { //If not maze data process first entity
       e = new Entity();
       char glyph = temp;//Store glpyh for later
