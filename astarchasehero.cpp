@@ -18,7 +18,7 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
   
   Entity * hero = heroVector.front();
   
-  for (std::vector<Entity *>::iterator it = heroVector.begin(); it != heroVector.end(); ++it) {
+  for (std::vector<Entity *>::const_iterator it = heroVector.begin(); it != heroVector.end(); ++it) {
     if ((*it)->getPosition().distanceFrom(start) < hero->getPosition().distanceFrom(start))
       hero = (*it);
   }
@@ -27,7 +27,7 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
 
   Position goal = hero->getPosition();
 
-  Maze * maze = game.getMaze();
+  Maze * maze = game->getMaze();
   
   std::vector<Position> openSet;
   openSet.push_back(start);
@@ -43,17 +43,18 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
   std::map<Position, int> fScore;
   //std::map<Position, bool> in_fScore; // Not needed, as fScore and gScore will always have the same entries
   
-  in_fScore[start] = true;
+  //in_fScore[start] = true;
   fScore[start] = start.distanceFrom(goal);
 
   // Loops until an optimal path is found or no feasible path is found
 
-  const std::vector<Position> directions {Direction::UP, Direction::DOWN, Direction::LEFT, Direction::RIGHT};
+  const std::vector<Direction> directions {Direction::UP, Direction::DOWN, Direction::LEFT, Direction::RIGHT};
   
   while(!(openSet.empty())) {
 
-    std::sort(openSet.begin(), openSet.end(), [](Position & a, Position & b) {return fScore[a] > fScore[b]});
-    Position current = openSet.pop_back();
+    std::sort(openSet.begin(), openSet.end(), [&fScore](Position & a, Position & b) {return fScore[a] > fScore[b];});
+    Position current = openSet.back();
+    openSet.pop_back();
 
     // The if statement handles if the goal is reached by a path
     
@@ -61,28 +62,21 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
 
       while (cameFrom[current] != start) current = cameFrom[current];
 
-      switch (current) {
-      case start.displace(Direction::UP):
-	return Direction::UP;
-      case start.displace(Direction::DOWN):
-	return Direction::DOWN;
-      case start.displace(Direction::LEFT):
-	return Direction::LEFT;
-      case start.displace(Direction::RIGHT):
-	return Direction::RIGHT;
-      default:
-	return Direction::NONE; // should never be called
-      }
+      if (current == start.displace(Direction::UP)) return Direction::UP;
+      if (current == start.displace(Direction::DOWN)) return Direction::DOWN;
+      if (current == start.displace(Direction::LEFT)) return Direction::LEFT;
+      if (current == start.displace(Direction::RIGHT)) return Direction::RIGHT;
+      return Direction::NONE; // should never be reached
     }
     
     // Considers all possible steps from current
 
-    for (std::vector<Direction>::iterator it = directions.begin(); it != directions.end(); ++it) {
+    for (std::vector<Direction>::const_iterator it = directions.begin(); it != directions.end(); ++it) {
 
       Position neighbor = current.displace(*it);
-      if (!(maze.inBounds(neighbor) && (maze.getTile(neighbor)->checkMoveOnto(entity, current, neighbor) == MoveResult::ALLOW))) continue;
+      if (!(maze->inBounds(neighbor) && (maze->getTile(neighbor)->checkMoveOnto(entity, current, neighbor) == MoveResult::ALLOW))) continue;
       
-      tentative_gScore = gScore[current] + 1;
+      int tentative_gScore = gScore[current] + 1;
 
       // Handles if a new or better step is found
       
@@ -92,7 +86,7 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
 	fScore[neighbor] = gScore[neighbor] + neighbor.distanceFrom(goal);
 	in_gScore[neighbor] = true;
 
-	if (!(std::find(openSet.begin(), openSet.end(), neighbor))) openSet.push_back(neighbor);
+	if (std::find(openSet.begin(), openSet.end(), neighbor) == openSet.end()) openSet.push_back(neighbor);
       }
     }
   }

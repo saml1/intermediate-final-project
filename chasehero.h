@@ -2,6 +2,9 @@
 #define CHASEHERO_H
 
 #include "entitycontroller.h"
+#include "entity.h"
+#include "game.h"
+#include "position.h"
 #include "maze.h"
 #include <vector>
 

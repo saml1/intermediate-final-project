@@ -3,7 +3,10 @@
 
 #include "entitycontroller.h"
 #include "entity.h"
+#include "game.h"
 #include "position.h"
+#include "maze.h"
+#include <algorithm>
 #include <vector>
 #include <map>
 

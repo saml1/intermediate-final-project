@@ -18,7 +18,7 @@ Direction ChaseHero::getMoveDirection(Game *game, Entity *entity) {
 
   Entity * hero = heroVector.front();
 
-  for (std::vector<Entity *>::iterator it = heroVector.begin(); it != heroVector.end(); ++it) {
+  for (std::vector<Entity *>::const_iterator it = heroVector.begin(); it != heroVector.end(); ++it) {
     if ((*it)->getPosition().distanceFrom(start) < hero->getPosition().distanceFrom(start))
       hero = (*it);
   }
@@ -35,10 +35,10 @@ Direction ChaseHero::getMoveDirection(Game *game, Entity *entity) {
   }
   
   int vertical = start.getY() - goal.getY();
-  Direction ver = Direction::DOWN;
+  Direction ver = Direction::UP;
   if (vertical < 0) {
     vertical *= -1;
-    ver = Direction::UP;
+    ver = Direction::DOWN;
   }
 
   Maze * maze = game->getMaze();
