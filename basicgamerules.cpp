@@ -46,11 +46,14 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
       direct = Direction::RIGHT;
     }
     
-    if(!eAtD->hasProperty('v')) {
+    if(!(eAtD->hasProperty('v') || (eAtD->hasProperty('h') && actor->hasProperty('m')) || (eAtD->hasProperty('m') && actor->hasProperty('h')))) {
       return false;
     }
-    if(!allowMove(game, eAtD, dest, dest.displace(direct))) {
+    if(eAtD->hasProperty('v') && !allowMove(game, eAtD, dest, dest.displace(direct))) {
       return false;  
+    }
+    if(tileD->checkMoveOnto(actor, source, dest) == MoveResult::BLOCK) {
+      return false;
     }
   }
   return true;
