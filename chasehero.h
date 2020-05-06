@@ -2,6 +2,8 @@
 #define CHASEHERO_H
 
 #include "entitycontroller.h"
+#include "maze.h"
+#include <vector>
 
 class ChaseHero : public EntityController {
 private:

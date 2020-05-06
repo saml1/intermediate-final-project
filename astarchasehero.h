@@ -2,6 +2,10 @@
 #define ASTARCHASEHERO_H
 
 #include "entitycontroller.h"
+#include "entity.h"
+#include "position.h"
+#include <vector>
+#include <map>
 
 class AStarChaseHero : public EntityController {
 private:

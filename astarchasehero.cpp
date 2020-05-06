@@ -1,9 +1,5 @@
-#include "entitycontroller.h"
 #include "astarchasehero.h"
-#include "entity.h"
-#include "position.h"
-#include <vector>
-#include <map>
+
 
 AStarChaseHero::AStarChaseHero() {}
 
@@ -13,6 +9,8 @@ AStarChaseHero::~AStarChaseHero() {}
 Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
 
   // The section below determines which hero to chase
+
+  Position start = entity->getPosition();
   
   std::vector<Entity *> heroVector = game->getEntitiesWithProperty('h');
   
@@ -26,8 +24,6 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
   }
 
   // The section below sets up the necessary containers for the algorithm
-
-  Position start = entity->getPosition();
 
   Position goal = hero->getPosition();
 
@@ -84,7 +80,7 @@ Direction AStarChaseHero::getMoveDirection(Game *game, Entity *entity) {
     for (std::vector<Direction>::iterator it = directions.begin(); it != directions.end(); ++it) {
 
       Position neighbor = current.displace(*it);
-      if (!(maze.inBounds(neighbor) && maze.getTile(neighbor)->checkMoveOnto(entity, current, neighbor))) continue;
+      if (!(maze.inBounds(neighbor) && (maze.getTile(neighbor)->checkMoveOnto(entity, current, neighbor) == MoveResult::ALLOW))) continue;
       
       tentative_gScore = gScore[current] + 1;
 

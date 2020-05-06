@@ -1,4 +1,3 @@
-#include "entitycontroller.h"
 #include "chasehero.h"
 
 ChaseHero::ChaseHero() {}
@@ -11,6 +10,8 @@ Direction ChaseHero::getMoveDirection(Game *game, Entity *entity) {
   // It is unfortunately reused code from AStarChaseHero
   // but I couldn't think of a simpler way to implement it
 
+  Position start = entity->getPosition();
+  
   std::vector<Entity *> heroVector = game->getEntitiesWithProperty('h');
 
   if (heroVector.empty()) return Direction::NONE;
@@ -23,8 +24,6 @@ Direction ChaseHero::getMoveDirection(Game *game, Entity *entity) {
   }
 
   // Determining which direction to move in
-
-  Position start = entity->getPosition();
 
   Position goal = hero->getPosition();
 
@@ -42,20 +41,24 @@ Direction ChaseHero::getMoveDirection(Game *game, Entity *entity) {
     ver = Direction::UP;
   }
 
+  Maze * maze = game->getMaze();
+  
+  Position step;
+  
   if (horizontal >= vertical) {
     step = start.displace(hor);
-    if (maze.inBounds(step) && maze.getTile(step)->checkMoveOnto(entity, start, step))
+    if (maze->inBounds(step) && (maze->getTile(step)->checkMoveOnto(entity, start, step) == MoveResult::ALLOW))
       return hor;
     step = start.displace(ver);
-    if (maze.inBounds(step) && maze.getTile(step)->checkMoveOnto(entity, start, step))
+    if (maze->inBounds(step) && (maze->getTile(step)->checkMoveOnto(entity, start, step) == MoveResult::ALLOW))
       return ver;
   }
   else {
     step = start.displace(ver);
-    if (maze.inBounds(step) && maze.getTile(step)->checkMoveOnto(entity, start, step))
+    if (maze->inBounds(step) && (maze->getTile(step)->checkMoveOnto(entity, start, step) == MoveResult::ALLOW))
       return ver;
     step = start.displace(hor);
-    if (maze.inBounds(step) && maze.getTile(step)->checkMoveOnto(entity, start, step))
+    if (maze->inBounds(step) && (maze->getTile(step)->checkMoveOnto(entity, start, step) == MoveResult::ALLOW))
       return hor;
   }
 
