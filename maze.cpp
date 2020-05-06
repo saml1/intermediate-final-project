@@ -50,11 +50,8 @@ Maze* Maze:: read(std::istream &in){
   sscanf(temp, "%d%d", &w, &h);*/
   int width;
   int height;
-  in >> width;
-  in >> height;
-  if(width == NULL || height == NULL) {
-    return nullptr;
-  }
+  if (!(in >> width)) return nullptr;
+  if (!(in >> height)) return nullptr;
   Maze * newMaze = new Maze(width,height);
   char ch;
   //in >> ch;
