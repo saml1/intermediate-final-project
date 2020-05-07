@@ -6,7 +6,7 @@
 TextUI::TextUI() {}
 
 TextUI::~TextUI() {
-  delete(m_msg);
+  delete(&m_msg);
 }
 
 Direction TextUI::getMoveDirection() {
