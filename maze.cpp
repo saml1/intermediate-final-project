@@ -1,6 +1,7 @@
 #include "maze.h"
 #include "position.h"
 #include <string>
+#include <sstream>
 #include <stdio.h>
 #include <vector>
 #include "tile.h"
@@ -56,34 +57,45 @@ Maze* Maze:: read(std::istream &in){
   int height;
   if (!(in >> width)) return nullptr;
   if (!(in >> height)) return nullptr;
+  std::string::size_type compare_width = width;
   Maze * newMaze = new Maze(width,height);
   char ch;
+  std::string line;
   //in >> ch;
   TileFactory * tf = TileFactory::getInstance();
   int count = 0;
-  while(in >> ch){
-    Tile* temp = tf->createFromChar(ch);
-    if(temp == nullptr){
-      return nullptr;
-    }
-    (newMaze->m_tiles).push_back(temp);
-    //(newMaze->m_tiles)[count] = temp;
-    count++;
-    if(count == width * height) {
-      char test = in.peek();
-      Tile * tile = tf->createFromChar(test);
-      if(tile != nullptr) {
-	return nullptr;
+  int count2 = 0;
+  std::getline(in, line); // dump
+  while(count2 < height){
+    std::getline(in, line);
+    if (line.length() != compare_width) return nullptr;
+    count2++;
+    std::stringstream ins(line);
+    while (ins >> ch) {
+      Tile* temp = tf->createFromChar(ch);
+      if(temp == nullptr){
+        return nullptr;
       }
-      break;
+      (newMaze->m_tiles).push_back(temp);
+      //(newMaze->m_tiles)[count] = temp;
+      count++;
+      if(count == width * height) {
+        char test = in.peek();
+        Tile * tile = tf->createFromChar(test);
+        if(tile != nullptr) {
+          return nullptr;
+        }
+        break;
+      }
     }
   }
   if(count != width*height){
     return nullptr;
   }
   return newMaze;
-  
+
 }
+
 
 int Maze::posToIndex(const Position &pos){
   return pos.getY()*getWidth() + pos.getX();
