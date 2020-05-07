@@ -17,6 +17,7 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
   if(source.distanceFrom(dest) > 1) { //Make sure move isnt more than 1 position
     return false;
   }
+  /*
   if(actor->hasProperty('v')) {//Test if method is trying to push multiple entities at once
     if(game->getEntityAt(dest) == NULL) {
       return true;
@@ -25,6 +26,7 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
       return false;
     }
   }
+  */
   Maze * maze = game->getMaze();
   const int width = maze->getWidth();
   const int height = maze->getHeight();
@@ -63,6 +65,9 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
     if(tileD->checkMoveOnto(actor, source, dest) == MoveResult::BLOCK) {
       return false;
     }
+  }
+  if(actor->hasProperty('v') && eAtD != NULL) {
+    return false;
   }
   return true;
 }
