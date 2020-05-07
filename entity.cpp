@@ -4,10 +4,12 @@
 Entity::Entity(){}
 
 Entity::~Entity(){
+  /*
   delete(&m_pos);
   delete(m_controller);
   delete(&m_glyph);
   delete(&m_properties);
+  */
 }
 
 // Set the glyph that will represent this Entity.

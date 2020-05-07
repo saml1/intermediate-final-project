@@ -18,10 +18,12 @@ Game::Game(){
 }
 
 Game::~Game(){
+  /*
   delete(m_maze);
   delete(m_ui);
   delete(m_gameRules);
   delete(&m_entities);
+  */
 }
 
 // Set the Maze object. The Game object assumes responsibility for deleting it.
