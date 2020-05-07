@@ -17,7 +17,12 @@ Game::Game(){
   //m_gameRules = nullptr;
 }
 
-Game::~Game(){}
+Game::~Game(){
+  delete(m_maze);
+  delete(m_ui);
+  delete(m_gameRules);
+  delete(&m_entities);
+}
 
 // Set the Maze object. The Game object assumes responsibility for deleting it.
 void Game::setMaze(Maze *maze){
@@ -126,7 +131,7 @@ void Game::takeTurn(Entity *actor){
     m_gameRules->enactMove(this, actor, dest);
   }
   else if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), dest))){
-    m_ui->displayMessage("Illegal Move");
+    m_ui->displayMessage("Illegal move");
   }
   /*if(ec->isUser() && !(m_gameRules->allowMove(this, actor, actor->getPosition(), (actor->getPosition()).displace(dir)))){
     m_ui->displayMessage("Illegal Move");

@@ -5,7 +5,9 @@
 
 TextUI::TextUI() {}
 
-TextUI::~TextUI() {}
+TextUI::~TextUI() {
+  delete(m_msg);
+}
 
 Direction TextUI::getMoveDirection() {
   std::cout << "Your move (u/d/l/r): ";
@@ -60,7 +62,7 @@ void TextUI::render(Game *game) {
   }
   //Check for outgoing message
   if(m_msg.compare("") != 0) {
-    std::cout << m_msg << std::endl;
+    std::cout << ": " << m_msg << std::endl;
     m_msg = "";
   }
 }

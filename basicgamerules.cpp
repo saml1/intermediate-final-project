@@ -17,6 +17,14 @@ bool BasicGameRules::allowMove(Game *game, Entity *actor, const Position &source
   if(source.distanceFrom(dest) > 1) { //Make sure move isnt more than 1 position
     return false;
   }
+  if(actor->hasProperty('v')) {//Test if method is trying to push multiple entities at once
+    if(game->getEntityAt(dest) == NULL) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
   Maze * maze = game->getMaze();
   const int width = maze->getWidth();
   const int height = maze->getHeight();
