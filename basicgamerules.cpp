@@ -98,6 +98,10 @@ void BasicGameRules::enactMove(Game *game, Entity *actor, const Position &dest) 
     eAtD->setPosition(dest.displace(direct));
     actor->setPosition(dest);
   }
+  else if(eAtD->hasProperty('v')) {
+    eAtD->setPosition(dest.displace(direct));
+    actor->setPosition(dest); 
+  }
   else {
     actor->setPosition(dest);
   }
@@ -116,7 +120,7 @@ GameResult BasicGameRules::checkGameResult(Game *game) const {
       return GameResult::HERO_WINS;
     }
     for(int j = 0; j < (int)evils.size(); j++) {
-      const Position temppos = evils[i]->getPosition();
+      const Position temppos = evils[j]->getPosition();
       if(temppos == pos) {
 	return GameResult::HERO_LOSES;
       }

@@ -113,10 +113,10 @@ void Game::gameLoop(){
     }
   }
   if(m_gameRules->checkGameResult(this) == GameResult::HERO_WINS){
-    m_ui->displayMessage("Hero wins");
+    m_ui->displayMessage("Hero wins", true);
     m_ui->render(this);
   }else{
-    m_ui->displayMessage("Hero loses");
+    m_ui->displayMessage("Hero loses", false);
     m_ui->render(this);
   }
 }

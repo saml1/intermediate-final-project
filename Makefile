@@ -15,7 +15,7 @@ MAIN_SRCS = main.cpp textui.cpp
 MAIN_OBJS = $(MAIN_SRCS:%.cpp=build/%.o)
 
 # Source files needed only for the curses driver program
-TMAIN_SRCS = tmain.cpp cursesui.cpp
+TMAIN_SRCS =  tmain.cpp cursesui.cpp
 TMAIN_OBJS = $(TMAIN_SRCS:%.cpp=build/%.o)
 
 # Source files containing game classes, needed by both driver programs
@@ -44,8 +44,8 @@ minotaur : $(MAIN_OBJS) $(OBJS)
 	$(CXX) -o $@ $(MAIN_OBJS) $(OBJS)
 
 # Target for the curses driver program (called "tminotaur".)
-#tminotaur : $(TMAIN_OBJS) $(OBJS)
-#	$(CXX) -o $@ $(TMAIN_OBJS) $(OBJS) -lncurses
+tminotaur : $(TMAIN_OBJS) $(OBJS)
+	$(CXX) -o $@ $(TMAIN_OBJS) $(OBJS) -lncurses
 
 
 positiontest : build/positiontest.o build/tctestpp.o

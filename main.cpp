@@ -1,6 +1,7 @@
 #include "game.h"
 #include "basicgamerules.h"
 #include "textui.h"
+#include "cursesui.h"
 #include <fstream>
 #include <iostream>
 
